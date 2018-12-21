@@ -3,22 +3,51 @@
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+<fieldset>
+    UserName:<input type="text" id="username" value="Tony" /><br />
+    Password:<input type="password" id="password" value="" /><br />
+    <input type="button" id="getToken" value="Get Token" /><br />
+    <textarea cols="20" id="v_token" readonly rows="4" style="max-width: 600px; width: 600px;"></textarea><br />
+    <input type="button" id="getData" value="Get Data" /><br />
+    <textarea id="v_data" readonly rows="4" style="max-width: 600px; width: 600px;"></textarea>
+</fieldset>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var apiServer = 'http://localhost:52944/api/';
+
+        $('#getToken').click(function () {
+            $.post(apiServer + 'JWT', {
+                account: $('#username').val(),
+                password: $('#password').val()
+            })
+                .done(function (data) {
+                    if (data.result !== undefined && data.result) {
+                        $('#v_token').val(data.token);
+                    } else {
+                        $('#v_token').val('error');
+                    }
+                })
+                .fail(function (err) {
+                    $('#v_token').val('error');
+                });
+        });
+
+        $('#getData').click(function () {
+            $.ajax({
+                url: apiServer + 'Products',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + $('#v_token').val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#v_data').val(JSON.stringify(data));
+                },
+                error: function (data) {
+                    $('#v_data').val('error');
+                }
+            })
+        })
+    });
+</script>

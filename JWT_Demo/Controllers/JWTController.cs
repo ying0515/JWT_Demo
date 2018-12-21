@@ -22,7 +22,7 @@ namespace JWT_Demo.Controllers
         public TokenModel Post(LoginModel login)
         {
             // TODO: 應固定且另外保存
-            var secret = ConfigurationSettings.AppSettings["jwt_key"];
+            var secret = JWT_Demo.Properties.Settings.Default.jwt_key;
 
             // TODO: 應該是和Db比對
             if (login.account == "Tony" && login.password == "123456")
@@ -66,7 +66,7 @@ namespace JWT_Demo.Controllers
         {
             HttpResponseMessage response;
             // TODO: 應固定且另外保存
-            var secretTxt = ConfigurationSettings.AppSettings["jwt_key"];
+            var secretTxt = JWT_Demo.Properties.Settings.Default.jwt_key;
             var secretKey = Encoding.UTF8.GetBytes(secretTxt);
 
             if (actionContext.Request.Headers.Authorization == null ||
