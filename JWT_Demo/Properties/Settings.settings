@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JWT_Demo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="jwt_key" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tony_huang+webapi+jwt+ying515_huang</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
