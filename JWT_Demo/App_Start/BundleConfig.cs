@@ -22,6 +22,9 @@ namespace JWT_Demo
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            //BundleTable.EnableOptimizations = true; //用來強制啟用打包及最佳化&覆寫web.config的設定compilation debug="false"
+
         }
     }
 }
